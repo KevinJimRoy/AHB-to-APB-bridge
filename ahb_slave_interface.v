@@ -10,7 +10,6 @@ module ahb_slave_interface(
 	output [1:0] Hresp
 );
 
-// pipeline logic for address
 always@(posedge Hclk) begin
 	if (!Hrstn) begin
 		Haddr1 <=0;
@@ -21,7 +20,6 @@ always@(posedge Hclk) begin
 	end
 end
 
-// pipeline logic for data
 always @(posedge Hclk) begin
 	if (!Hrstn) begin
 		Hwdata1 <=0;
@@ -32,7 +30,6 @@ always @(posedge Hclk) begin
 	end
 end
 
-// pipeline logic for write
 always @(posedge Hclk) begin
 	if (!Hrstn) begin
 		Hwritereg <=0;
@@ -43,7 +40,6 @@ always @(posedge Hclk) begin
 	end
 end
 
-//combinational logic for temp_selx
 always @(*) begin
 	if (Haddr >=32'h8000_0000 && Haddr < 32'h8400_0000) begin
 		temp_selx=3'b001;
@@ -55,7 +51,6 @@ always @(*) begin
 end
 
 
-//combinational logic for valid
 always @(*) begin
 	if((Haddr >=32'h8000_0000 && Haddr <= 32'h8c00_0000) && (Hready==1) && ((Htrans ==2'b10)||(Htrans ==2'b11))) begin
 		valid =1'b1;
